@@ -29,10 +29,7 @@ public class GameBoard {
 		squares[foot] = top;
 	}
 
-	public int movePlayerPiece(int index) {
-		return squares[index];
-
-	}
+	
 	public int getTotalBlocks() {
 		return totalBlocks;
 	}
