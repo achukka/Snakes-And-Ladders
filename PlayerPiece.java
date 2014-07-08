@@ -1,24 +1,39 @@
+package org.paypal.working;
 
 public class PlayerPiece {
-	private BoardSquare currentPosition;
-	private String color;
-	
-	private PlayerPiece(String c) {
-		color = c;
+
+	String PlayerName;
+	String color;
+	int currentPosition;
+	int index;
+
+	PlayerPiece(int id) {
+		index = id;
+		currentPosition = 0;
+		PlayerName = "A";
 	}
-	private void setColor(String color) {
-		this.color = color;
+
+	public int getCurrentPosition() {
+		return this.currentPosition;
 	}
-	String getColor() {
-		return color;
+
+	void movePlayerPiece(GameBoard board, int steps) {
+		int oldPosition = this.getCurrentPosition();
+		String jumpType = "";
+		int newPosition = steps + this.getCurrentPosition();
+		if (newPosition < board.getTotalBlocks()) {
+			this.setCurrentPosition(board.squares[newPosition]);
+			jumpType = board.printType(newPosition);
+		}
+		System.out.println(" From " + oldPosition
+				+ "--" + this.getCurrentPosition() + "\t" + jumpType);
 	}
-	BoardSquare getCurrentPosition() {
-		return currentPosition;
+
+	public void setCurrentPosition(int newPos) {
+		currentPosition = newPos;
 	}
-	void moveTo(BoardSquare newPosition){
-		newPosition.movePlayerPiece(this);
-	}
-	void setCurrentPosition(BoardSquare newPosition) {
-		currentPosition = newPosition;
+
+	public boolean wins(GameBoard b) {
+		return (currentPosition == (b.getTotalBlocks()-1)) ? true : false;
 	}
 }

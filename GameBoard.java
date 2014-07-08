@@ -1,32 +1,50 @@
+package org.paypal.working;
 
 public class GameBoard {
-	BoardSquare [] squares;
-	public final int START_SQUARE = 1;
-	public final int MAX_SQUARE = 100;
-	public final int
+	int[] squares;
+	int totalBlocks;
+
 	GameBoard() {
-		die = new Die();
-		squares = new BoardSquare[START_SQUARE + MAX_SQUARE];
-		for(int i = START_SQUARE; i <= MAX_SQUARE; i++){
-			squares[i] = new BoardSquare(i);
+		totalBlocks = 101;
+		squares = new int[101];
+		for (int i = 0; i <= 100; i++) {
+			squares[i] = i;
 		}
-		
+
 	}
-	
-	BoardSquare getStartSquare() {
-		return squares[START_SQUARE];
-	}
-	void movePlayerPiece(PlayerPiece counter) {
-		BoardSquare current = counter.getCurrentPosition();
-		int nextPosition = current.getPosition() + die.getRoll();
-		if(nextPosition > MAX_SQUARE) {
-			System.out.println("Sorry ");
+
+	GameBoard(int len) {
+		totalBlocks = len + 1;
+		squares = new int[len + 1];
+		for (int i = 0; i <= len; i++) {
+			squares[i] = i;
 		}
-		else
-		{
-			counter.moveTo(squares[nextPosition]);
-		}
-		System.out.println(counter.getColor()+ " on " + counter.getCurrentPosition().getPosition());
 	}
-	
+
+	public void addSnake(int head, int tail) {
+		squares[head] = tail;
+	}
+
+	public void addLadder(int top, int foot) {
+		squares[foot] = top;
+	}
+
+	public int movePlayerPiece(int index) {
+		return squares[index];
+
+	}
+	public int getTotalBlocks() {
+		return totalBlocks;
+	}
+
+	public String printType(int index) {
+		if (squares[index] == index) {
+			return "";
+		}
+		if (squares[index] > index) {
+			return "Ladder";
+		} else {
+			return "Snake";
+		}
+	}
 }
